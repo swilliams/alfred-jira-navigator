@@ -1,20 +1,30 @@
 const alfy = require('alfy');
-const { URLS, defaultURLOptions, iconPath } = require('./utils');
+const {
+  URLS, defaultURLOptions, iconPath, validateAgainstSchema,
+} = require('./utils');
 
-const transformRawEpicToItem = (epic) => ({
-  title: epic.fields.summary,
-  subtitle: epic.key,
-  arg: epic.key,
-  icon: {
-    path: `${iconPath}/jira-icon-epic.png`,
-  },
-  mods: {
-    cmd: {
-      subtitle: `Open '${epic.key}' in your browser.`,
-      arg: `${URLS.browseURL}/${epic.key}`,
+const transformRawEpicToItem = (epic) => {
+  // Make sure the structure of the `epic` matches what we expect.
+  const validationError = validateAgainstSchema(epic, 'epic');
+  if (validationError) {
+    alfy.error(validationError);
+  }
+
+  return {
+    title: epic.fields.summary,
+    subtitle: epic.key,
+    arg: epic.key,
+    icon: {
+      path: `${iconPath}/jira-icon-epic.png`,
     },
-  },
-});
+    mods: {
+      cmd: {
+        subtitle: `Open '${epic.key}' in your browser.`,
+        arg: `${URLS.browseURL}/${epic.key}`,
+      },
+    },
+  };
+};
 
 const buildEpicsURL = (epicKey) => {
   const jql = `project = ${epicKey} AND issuetype = Epic AND resolution = Unresolved`;

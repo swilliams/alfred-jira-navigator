@@ -1,12 +1,18 @@
 const alfy = require('alfy');
-const { URLS, defaultURLOptions } = require('./utils');
+const { URLS, defaultURLOptions, validateAgainstSchema } = require('./utils');
 
 const buildProjectSearchURL = (searchForProjName) => `${URLS.apiURL}/project/search?query=${encodeURI(searchForProjName)}`;
 
 const transformRawProjectToItem = (rawProj) => {
-  const title = rawProj.name;
+  // Make sure the structure of the `rawProj` matches what we expect.
+  const validationError = validateAgainstSchema(rawProj, 'project');
+  if (validationError) {
+    alfy.error(validationError);
+  }
+
+  // convert it to the format Alfred expects
   return {
-    title,
+    title: rawProj.name,
     subtitle: rawProj.key,
     arg: rawProj.key,
     mods: {

@@ -1,9 +1,15 @@
 const alfy = require('alfy');
 const {
-  URLS, defaultURLOptions, getIconPathForIssueType, filterItemsToMatchTitle,
+  URLS, defaultURLOptions, getIconPathForIssueType, filterItemsToMatchTitle, validateAgainstSchema,
 } = require('./utils');
 
 const transformRawIssueToItem = (issue) => {
+  // Make sure the structure of the `issue` matches what we expect.
+  const validationError = validateAgainstSchema(issue, 'issue');
+  if (validationError) {
+    alfy.error(validationError);
+  }
+
   const subtitle = `${issue.key} -- ${issue.fields.status.name} -- P ${issue.fields.priority.id}`;
 
   return {
