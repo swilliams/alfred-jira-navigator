@@ -1,0 +1,40 @@
+{
+  "name": "alfred-jira-navigator",
+  "version": "0.0.0",
+  "description": "Alfred thingy for navigating through jira",
+  "license": "MIT",
+  "repository": "swilliams/alfred-jira-navigator",
+  "author": {
+    "name": "Scott Williams",
+    "email": "scott@swilliams.me",
+    "url": "https://swilliams.me"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && ava",
+    "postinstall": "alfy-init",
+    "preuninstall": "alfy-cleanup"
+  },
+  "files": [
+    "index.js",
+    "icon.png",
+    "info.plist"
+  ],
+  "keywords": [
+    "alfred",
+    "workflow",
+    "alfy"
+  ],
+  "dependencies": {
+    "alfy": "^0.6.0"
+  },
+  "devDependencies": {
+    "alfy-test": "^0.3.0",
+    "ava": "^0.18.0",
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "xo": "^0.17.0"
+  }
+}
