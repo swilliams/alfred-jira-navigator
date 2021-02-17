@@ -3,6 +3,12 @@ const {
   URLS, defaultURLOptions, iconPath, validateAgainstSchema,
 } = require('./utils');
 
+const createSearchItem = (searchText) => ({
+  title: searchText,
+  subtitle: `Search ${process.env.epicKey} for "${searchText}"`,
+  arg: `SEARCH ${searchText}`,
+});
+
 const transformRawEpicToItem = (epic) => {
   // Make sure the structure of the `epic` matches what we expect.
   const validationError = validateAgainstSchema(epic, 'epic');
@@ -53,16 +59,17 @@ const extractFilterText = (input) => {
 
 (async () => {
   const filterText = extractFilterText(alfy.input).toLowerCase();
-  const items = await fetchEpics();
+  const fetchedEpics = await fetchEpics();
+  let displayItems = fetchedEpics; // Show all epics by default.
 
   if (filterText) {
-    const matchedItems = items.filter((item) => {
+    displayItems = fetchedEpics.filter((item) => {
       const matchesTitle = item.title.toLowerCase().includes(filterText);
       const matchesArg = item.arg.includes(filterText);
       return matchesTitle || matchesArg;
     });
-    alfy.output(matchedItems);
-  } else {
-    alfy.output(items);
   }
+  // Add a "search item" so that the user can also do a generic search
+  displayItems.push(createSearchItem(filterText));
+  alfy.output(displayItems);
 })();
