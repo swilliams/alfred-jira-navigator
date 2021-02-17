@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const rootURL = 'https://zapierorg.atlassian.net';
+const rootURL = 'https://zapierorg.atlassian.net'; // this should probably be in ENV
 const browseURL = `${rootURL}/browse`;
 const apiURL = `${rootURL}/rest/api/latest`;
 
@@ -20,6 +20,8 @@ const defaultURLOptions = {
 };
 
 const iconPath = './icons';
+// When displaying items in Alfred you can specifiy an icon. This function maps icon types to the
+// filename of the image to use.
 const mapIssueTypeToIconName = (issueType) => {
   const map = {
     Task: 'task',
@@ -32,14 +34,18 @@ const mapIssueTypeToIconName = (issueType) => {
   };
   return map[issueType] || 'default';
 };
+// Gets the path to the icon for an image type.
 const getIconPathForIssueType = (issueType) => `${iconPath}/jira-icon-${mapIssueTypeToIconName(issueType)}.png`;
 
+// Takes in an array of `items` and text to filter on, returns an array of items that include
+// `filterText`.
 const filterItemsToMatchTitle = (items, filterText) => items.filter((item) => {
   const matchesTitle = item.title.toLowerCase().includes(filterText);
   const matchesArg = item.arg.includes(filterText);
   return matchesTitle || matchesArg;
 });
 
+// Data validation. These schemas validate any data returned from the API is what we expect.
 const schemas = {
   project: Joi.object().keys({
     name: Joi.string().required(),
@@ -72,6 +78,7 @@ const schemas = {
   }).unknown(true),
 };
 
+// Ensures that an `obj` matches the schema described by `schemaName`.
 const validateAgainstSchema = (obj, schemaName) => {
   const schema = schemas[schemaName];
   const validation = schema.validate(obj);
