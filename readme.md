@@ -1,4 +1,4 @@
-# alfred-jira-navigator [![Build Status](https://travis-ci.org/swilliams/alfred-jira-navigator.svg?branch=master)](https://travis-ci.org/swilliams/alfred-jira-navigator)
+# alfred-jira-navigator
 
 > Alfred thingy for navigating through jira
 
