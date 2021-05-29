@@ -9,7 +9,7 @@ Use Alfred to navigate through a Jira project's hierarchy of epics, stories, and
 - [Alfred v4 and Powerpack](https://www.alfredapp.com/powerpack/)
 - An API token for Jira. Learn how to [generate them here](https://confluence.atlassian.com/cloud/api-tokens-938839638.html)
 
-Download "" from the Latest Release here: [https://github.com/swilliams/alfred-jira-navigator/releases](https://github.com/swilliams/alfred-jira-navigator/releases)
+Download "Jira.Navigator.alfredworkflow" from the Latest Release here: [https://github.com/swilliams/alfred-jira-navigator/releases](https://github.com/swilliams/alfred-jira-navigator/releases)
 
 When that file is downloaded, double click the `.alfredworkflow` to install it and open it up.
 
