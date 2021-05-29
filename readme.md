@@ -33,6 +33,7 @@ The works on some preconceived ideas of hierachies in that a Jira project has Ep
 
 ## What don't work
 * If you're in Step 2 or 3 and backspace back into the prefix things get wonky. You'll have to <kbd>Esc</kbd> and start over.
+* I'd love to be able to add quick links to reporting, but it does not seem possible to generate those URLs from the Jira API. 
 
 ## License
 
